@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+        content="UniVG-R1 is a reasoning guided universal visual grounding model with reinforcement learning.">
+  <meta name="keywords" content="UniVG-R1, univg-r1, universal visual grounding, GRPO, Qwen2-VL">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>UniVG-R1: Reasoning Guided Universal Visual Grounding with Reinforcement Learning</title>
+
+  <meta name="google-site-verification" content="wqG380jQOyUT5HIVYVvh9FR_EnEqKY2aHflQGJ_slJA" />
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-PYVRSFMDRL"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+
+    gtag('js', new Date());
+
+    gtag('config', 'G-PYVRSFMDRL');
+  </script>
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+        rel="stylesheet">
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <!-- <link rel="icon" href="./static/images/favicon.svg"> -->
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+
+
+
+
+<section class="hero" style="margin-top: 1rem;">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-1 publication-title">UniVG-R1:<br> Reasoning Guided <span style="color: rgba(95, 173, 242, 0.988);">Uni</span>versal <span style="color: rgba(95, 173, 242, 0.988);">V</span>isual <span style="color: rgba(95, 173, 242, 0.988);">G</span>rounding with Reinforcement Learning</h1>
+          <!-- <h2 class="title is-2 publication-title"><span style="color: rgba(250, 66, 66, 0.988);">CVPR</span> 2025</h2> -->
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">
+              <a href="https://sulebai.github.io/">Sule Bai</a><sup>1</sup>,</span>
+            <span class="author-block">
+              <a href="https://scholar.google.com/citations?user=-pfkprkAAAAJ&hl=zh-CN&oi=ao">Mingxing Li</a><sup>2</sup>,</span>
+            <span class="author-block">
+              <a href="https://yongliu20.github.io/">Yong Liu</a><sup>1</sup>,
+            </span>
+            <span class="author-block">
+              <a href="">Jing Tang</a><sup>2</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://zhang9302002.github.io/">Haoji Zhang</a><sup>1</sup>,
+            </span>
+            <span class="author-block">
+              <a href="">Lei Sun</a><sup>2 &Dagger;</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://cxxgtxy.github.io/">Xiangxiang Chu</a><sup>2</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://andytang15.github.io/">Yansong Tang</a><sup>1 &dagger;</sup>
+            </span>
+          </div>
+
+          <div class="is-size-5 publication-authors">
+            <span class="author-block"><sup>1</sup>Tsinghua University,</span>
+            <span class="author-block"><sup>2</sup>ALibaba Group</span>
+          </div>
+          
+          <div class="is-size-5 publication-authors">
+            <span class="author-block"><sup>&dagger;</sup>Corresponding authors,</span>
+            <span class="author-block"><sup>&Dagger;</sup>Project lead</span>
+          </div>
+
+          <div class="column has-text-centered">
+            <div class="publication-links">
+              <span class="link-block">
+                <a href=""
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="ai ai-arxiv"></i>
+                  </span>
+                  <span>arXiv</span>
+                </a>
+              </span>
+              <!-- <span class="link-block">
+                <a href="https://arxiv.org/pdf/2406.12275v2"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fas fa-file-pdf"></i>
+                  </span>
+                  <span>Paper</span>
+                </a>
+              </span> -->
+              <!-- Code Link. -->
+              <span class="link-block">
+                <a href=""
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-github"></i>
+                  </span>
+                  <!-- <span>Code</span> -->
+                  <span>Coming Soon</span>
+                  </a>
+              </span>
+              <span class="link-block">
+                <a href=""
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <p style="font-size:18px">🤗</p>
+                  </span>
+                  <span>Demo</span>
+                </a>
+              </span>
+              <span class="link-block">
+                <a href=""
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <p style="font-size:18px">🤗</p>
+                  </span>
+                  <span>Model</span>
+                </a>
+              </span>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- <div class="column is-3 has-text-centered">
+  <img src="./static/images/interpolate_start.jpg"
+       class="interpolation-image"
+       alt="Interpolate start reference image."/>
+  <p>Start Frame</p>
+</div> -->
+
+
+<section class="section" style="margin-top: -4rem;">
+  <div class="container is-max-desktop">
+    <!-- Abstract. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">TL;DR</h2>
+        <div class="content has-text-justified">
+          1. We propose UniVG-R1, a reasoning guided MLLM for universal visual grounding, which employs GRPO training combined with a cold-start initialization to effectively enhance reasoning capabilities across multimodal contexts. 
+          <br>
+          2. A high-quality CoT grounding dataset is introduced, encompassing diverse tasks, each meticulously annotated with detailed reasoning chains to facilitate advanced reasoning-based grounding.
+          <br>
+          3. We identify a difficulty bias in GRPO training, and propose a difficulty-aware weight adjustment strategy.
+          Experiments validate that GRPO equipped with this strategy consistently enhance the model performance. 
+          <br>
+          4. Extensive experiments demonstrate that our model achieves state-of-the-art performance across multiple grounding benchmarks, showcasing its versatility and generalizability.
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section class="hero teaser">
+  <div class="container is-max-desktop">
+    <div class="hero-body">
+      <img src="./static/univg-r1/teaser.jpg"
+       class="interpolation-image"
+       alt="Interpolate start reference image."/>
+      <h4 class="subtitle has-text-centered">
+        UniVG-R1 tackles a wide range of visual grounding tasks with complex and implicit instructions. By combining GRPO training with a cold-start initialization, it effectively reasons over instructions and visual inputs, significantly improving grounding performance. Our model achieves state-of-the-art results on MIG-Bench and exhibits superior zero-shot performance on four reasoning-guided grounding benchmarks with an average 23.4% improvement.
+      </h4>
+    </div>
+  </div>
+</section>
+
+
+<section class="section" style="margin-top: -2rem;">
+  <div class="container is-max-desktop">
+    <!-- Abstract. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+          <!-- <p>
+            We present the first method capable of photorealistically reconstructing a non-rigidly
+            deforming scene using photos/videos captured casually from mobile phones.
+          </p>
+          Vision-Language Models (VLMs) have achieved remarkable success in various multi-modal tasks, but they are often bottlenecked by the limited context window and high computational cost of processing high-resolution image inputs and videos. 
+          Vision compression can alleviate this problem by reducing the vision token count.
+          Previous approaches compress vision tokens with external modules and force LLMs to understand the compressed ones, leading to visual information loss.
+          However, the LLMs' understanding paradigm of vision tokens is not fully utilised in the compression learning process. -->
+          Traditional visual grounding methods primarily focus on single-image scenarios with simple textual references. However, extending these methods to real-world scenarios that involve implicit and complex instructions, particularly in conjunction with multiple images, poses significant challenges, which is mainly due to the lack of advanced reasoning ability across diverse multi-modal contexts.
+          In this work, we aim to address the more practical universal grounding task, and propose UniVG-R1, a reasoning guided multimodal large language model (MLLM) for universal visual grounding, which enhances reasoning capabilities through reinforcement learning (RL) combined with cold-start data.
+          Specifically, we first construct a high-quality Chain-of-Thought (CoT) grounding dataset, annotated with detailed reasoning chains, to guide the model towards correct reasoning paths via supervised fine-tuning.  Subsequently, we perform rule-based reinforcement learning to encourage the model to identify correct reasoning chains, thereby incentivizing its reasoning capabilities. 
+          In addition, we identify a difficulty bias arising from the prevalence of easy samples as RL training progresses, and we propose a difficulty-aware weight adjustment strategy to further strengthen the performance. 
+          Experimental results demonstrate the effectiveness of UniVG-R1, which achieves state-of-the-art performance on MIG-Bench with a 9.1% improvement over the previous method. Furthermore, our model exhibits strong generalizability, achieving an average improvement of 23.4% in zero-shot performance across four image and video reasoning grounding benchmarks.
+        </div>
+      </div>
+    </div>
+    <!--/ Abstract. -->
+
+    
+  </div>
+</section>
+
+
+<section class="section" style="margin-top: -2rem;">
+  <div class="container is-max-desktop">
+
+
+    <!-- Animation. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-3">Pipeline</h2>
+        <!-- <div class="content has-text-justified">
+          <p>
+            Using <span class="dnerf">Nerfies</span>, you can re-render a video from a novel
+            viewpoint such as a stabilized camera by playing back the training deformations.
+          </p>
+        </div> -->
+        <div class="content has-text-centered">
+          <img src="./static/univg-r1/pipeline.jpg"
+          class="interpolation-image"
+          alt="Interpolate start reference image."/>
+        </div>
+        <h2>
+          We adopt a two-stage training process. The first stage employs CoT-SFT, with the training data construction shown in (a). The second stage utilizes GRPO equipped with a difficulty-aware weight adjustment strategy in (b). The GRPO training process is illustrated in (c), where the policy model generates multiple responses, and each is assigned a distinct reward.
+        </h2>
+        <!--/ Re-rendering. -->
+
+      </div>
+    </div>
+    <!--/ Animation. -->
+
+  </div>
+</section>
+
+<section class="section" style="margin-top: -2rem;">
+  <div class="container is-max-desktop">
+
+
+    <!-- Animation. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-3">Results</h2>
+        <!-- <div class="content has-text-justified">
+          <p>
+            Using <span class="dnerf">Nerfies</span>, you can re-render a video from a novel
+            viewpoint such as a stabilized camera by playing back the training deformations.
+          </p>
+        </div> -->
+        <div class="content has-text-centered">
+          <img src="./static/univg-r1/result1.png"
+          class="interpolation-image"
+          alt="Interpolate start reference image."
+          style="width: 80%; height: auto;"/> 
+        </div>
+        <div class="content has-text-centered" style="margin-top: 1rem;">
+          <img src="./static/univg-r1/result2.png"
+          class="interpolation-image"
+          alt="Interpolate start reference image."
+          style="width: 80%; height: auto;"/> 
+        </div>
+        <!--/ Re-rendering. -->
+
+      </div>
+    </div>
+    <!--/ Animation. -->
+
+  </div>
+</section>
+
+<section class="section" style="margin-top: -2rem;">
+  <div class="container is-max-desktop">
+
+
+    <!-- Animation. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-3">Difficulty-Aware Weight Adjustment Strategy</h2>
+        <!-- <div class="content has-text-justified">
+          During the stage 2 reinforcement learning process, we observe that most samples progressively become easier for the model, with the proportion of easy samples increasing and the proportion of hard samples steadily decreases. Since the GRPO algorithm normalizes rewards to calculate the relative advantage within each group, easy samples (e.g., <em>mIoU</em> = 0.8) receives the same policy gradient update as hard samples (e.g., <em>mIoU</em> = 0.2). This leads to a difficulty-bias issue. In particular, during the later stages of training, as easy samples become predominant, most updates are derived from these easier instances, making it difficult for the model to focus on hard samples.
+        </div>
+        <div class="content has-text-centered">
+          <img src="./static/univg-r1/proportion.png"
+          class="interpolation-image"
+          alt="Interpolate start reference image."
+          style="width: 45%; height: auto;"/> 
+        </div> -->
+        <div class="content-flex-row">
+          <div class="content-text" style="text-align: left;">
+            During the stage 2 reinforcement learning process, we observe that most samples progressively become easier for the model, with the proportion of easy samples increasing and the proportion of hard samples steadily decreases. Since the GRPO algorithm normalizes rewards to calculate the relative advantage within each group, easy samples (e.g., \(\textit{mIoU}\) = 0.8) receives the same policy gradient update as hard samples (e.g., \(\textit{mIoU}\) = 0.2). This leads to a difficulty-bias issue. In particular, during the later stages of training, as easy samples become predominant, most updates are derived from these easier instances, making it difficult for the model to focus on hard samples. 
+            <br>
+            <br>
+            To address this problem, we propose a difficulty-aware weight adjustment strategy, which dynamically adjusts the weight of each sample based on its difficulty. Specifically, we introduce a difficulty coefficient \( \phi \propto -\textit{mIoU} \) to quantify the difficulty level of each sample, where the function \( \phi \) is negatively correlated with \(\textit{mIoU}\). This coefficient dynamically adjusts the sample weights by computing the average accuracy reward of different responses for each sample. The detailed formula is provided below.
+          </div>
+          <div class="content-img">
+            <img src="./static/univg-r1/proportion.png"
+                 class="interpolation-image"
+                 alt="Interpolate start reference image."
+                 style="width: 1800px; height: auto;"/>
+          </div>
+        </div>
+        <div style="margin: 2em 0;">
+          \[
+          \mathcal{J}_{GRPO}(\theta) = \mathbb{E}_{q \sim P(Q), \{o_i\}_{i=1}^G \sim \pi_{\theta_{old}}(O|q)} \left[
+          \frac{1}{G}\sum_{i=1}^G {\color{blue} \phi(\mathit{mIoU})} \frac{\pi_{\theta}(o_i|q)}{\pi_{\theta_{old}}(o_i|q)}A_i - \beta\mathbb{D}_{KL}(\pi_{\theta}||\pi_{ref})
+          \right]
+          \]
+          </div>
+        <div class="content has-text-centered" style="margin-top: 1rem;">
+          <img src="./static/univg-r1/result3.png"
+          class="interpolation-image"
+          alt="Interpolate start reference image."
+          style="width: 80%; height: auto;"/> 
+        </div>
+        <!--/ Re-rendering. -->
+
+      </div>
+    </div>
+    <!--/ Animation. -->
+
+  </div>
+</section>
+
+
+<section class="section" style="margin-top: -2rem;">
+  <div class="container is-max-desktop">
+
+
+    <!-- Animation. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-3">Visualization</h2>
+        <!-- <div class="content has-text-justified">
+          <p>
+            Using <span class="dnerf">Nerfies</span>, you can re-render a video from a novel
+            viewpoint such as a stabilized camera by playing back the training deformations.
+          </p>
+        </div> -->
+        <div class="content has-text-centered">
+          <img src="./static/univg-r1/visualization.jpg"
+          class="interpolation-image"
+          alt="Interpolate start reference image."
+          style="width: 90%; height: auto;"/> 
+        </div>
+
+      </div>
+    </div>
+    <!--/ Animation. -->
+
+  </div>
+</section>
+
+
+<!-- <section class="section" id="BibTeX">
+  <div class="container is-max-desktop content">
+    <h2 class="title">BibTeX</h2>
+    <pre><code>@article{ye2024voco,
+    author    = {Ye, Xubing and Gan, Yukang and Huang, Xiaoke and Ge, Yixiao and Shan, Ying and Tang, Yansong},
+    title     = {{VoCo-LLaMA: Towards Vision Compression with Large Language Models}},
+    journal   = {arXiv preprint arXiv:2406.12275},
+    year      = {2024},
+}</code></pre>
+  </div>
+</section> -->
+
+
+<footer class="footer">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content">
+          <p> 
+            Contact: 
+            <a href="mailto:bsl23@mails.tsinghua.edu.cn">bsl23@mails.tsinghua.edu.cn</a><br>
+            This website is adapted from <a
+            href="https://github.com/nerfies/nerfies.github.io">Nerfies</a> under a <a rel="license"
+                                                href="http://creativecommons.org/licenses/by-sa/4.0/">Creative
+            Commons Attribution-ShareAlike 4.0 International License</a>.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
